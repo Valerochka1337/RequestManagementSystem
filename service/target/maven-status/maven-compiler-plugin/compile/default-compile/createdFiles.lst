@@ -1,0 +1,10 @@
+org/valerochka1337/service/RequestService.class
+org/valerochka1337/model/RequestModel.class
+org/valerochka1337/service/RequestServiceImpl.class
+org/valerochka1337/mapper/RequestModelEntityMapper.class
+org/valerochka1337/model/RequestModel$RequestModelBuilder.class
+org/valerochka1337/model/UserModel.class
+org/valerochka1337/mapper/UserModelEntityMapper.class
+org/valerochka1337/service/UserService.class
+org/valerochka1337/model/UserModel$UserModelBuilder.class
+org/valerochka1337/mapper/RequestModelEntityMapperImpl.class

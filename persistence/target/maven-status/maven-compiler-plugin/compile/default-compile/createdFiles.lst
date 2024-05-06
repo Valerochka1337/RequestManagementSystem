@@ -1,0 +1,10 @@
+org/valerochka1337/entity/Role$RoleBuilder.class
+org/valerochka1337/repository/RoleRepository.class
+org/valerochka1337/entity/Role.class
+org/valerochka1337/entity/Status.class
+org/valerochka1337/repository/UserRepository.class
+org/valerochka1337/entity/User.class
+org/valerochka1337/entity/User$UserBuilder.class
+org/valerochka1337/repository/RequestRepository.class
+org/valerochka1337/entity/Request$RequestBuilder.class
+org/valerochka1337/entity/Request.class
