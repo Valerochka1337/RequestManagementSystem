@@ -7,3 +7,4 @@ org/valerochka1337/mapper/UserDTOModelMapperImpl.class
 org/valerochka1337/dto/RequestDTO.class
 org/valerochka1337/dto/RequestDTO$RequestDTOBuilder.class
 org/valerochka1337/mapper/RequestDTOModelMapper.class
+org/valerochka1337/controller/UserController.class

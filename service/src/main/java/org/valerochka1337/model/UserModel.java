@@ -15,10 +15,6 @@ public class UserModel {
 
   private String password;
 
-  private String firstName;
-
-  private String lastName;
-
   private Set<Role> roles;
 
   private List<RequestModel> requests;

@@ -9,7 +9,7 @@ import org.valerochka1337.model.RequestModel.RequestModelBuilder;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-05-06T15:39:43+0300",
+    date = "2024-05-07T22:01:05+0300",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11.0.23 (Amazon.com Inc.)"
 )
 @Component

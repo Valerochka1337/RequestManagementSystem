@@ -9,10 +9,8 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.valerochka1337.dto.RequestDTO;
 import org.valerochka1337.dto.UserDTO;
-import org.valerochka1337.entity.Request;
 import org.valerochka1337.entity.Role;
 import org.valerochka1337.entity.Status;
-import org.valerochka1337.entity.User;
 import org.valerochka1337.model.RequestModel;
 import org.valerochka1337.model.UserModel;
 
@@ -38,8 +36,6 @@ public interface RequestDTOModelMapper {
     return UserDTO.builder()
         .id(user.getId())
         .username(user.getUsername())
-        .firstName(user.getFirstName())
-        .lastName(user.getLastName())
         .roles(user.getRoles().stream().map(Role::getName).collect(Collectors.toList()))
         .build();
   }
@@ -53,8 +49,6 @@ public interface RequestDTOModelMapper {
     return UserModel.builder()
         .id(user.getId())
         .username(user.getUsername())
-        .firstName(user.getFirstName())
-        .lastName(user.getLastName())
         .roles(user.getRoles().stream().map(Role::new).collect(Collectors.toSet()))
         .build();
   }

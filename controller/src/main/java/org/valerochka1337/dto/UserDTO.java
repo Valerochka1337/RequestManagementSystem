@@ -15,10 +15,6 @@ public class UserDTO {
 
   private String username;
 
-  private String firstName;
-
-  private String lastName;
-
   private List<String> roles;
 
   private List<RequestDTO> requests;

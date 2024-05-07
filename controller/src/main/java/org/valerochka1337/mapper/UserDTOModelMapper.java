@@ -11,14 +11,15 @@ import org.valerochka1337.entity.Role;
 import org.valerochka1337.entity.User;
 import org.valerochka1337.model.UserModel;
 
-@Mapper
+@Mapper(componentModel = "spring", uses = RequestDTOModelMapper.class)
 public interface UserDTOModelMapper {
 
   @Mapping(target="roles", qualifiedByName = "RolesToDTO")
+  @Mapping(target="requests")
   UserDTO toDTO(UserModel model);
 
   @Mapping(target="roles", qualifiedByName = "RolesToModel")
-  User toEntity(UserDTO dto);
+  User toModel(UserDTO dto);
 
   @Named("RolesToDTO")
   default List<String> mapRolesToDTO(Set<Role> roles) {
@@ -26,7 +27,7 @@ public interface UserDTOModelMapper {
       return null;
     }
 
-    return roles.stream().map(Role::toString).collect(Collectors.toList());
+    return roles.stream().map(Role::getName).collect(Collectors.toList());
   }
 
   @Named("RolesToModel")

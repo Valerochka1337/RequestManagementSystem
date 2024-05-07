@@ -25,8 +25,6 @@ public interface RequestModelEntityMapper {
     return UserModel.builder()
         .id(user.getId())
         .username(user.getUsername())
-        .firstName(user.getFirstName())
-        .lastName(user.getLastName())
         .roles(user.getRoles())
         .build();
   }
@@ -40,8 +38,6 @@ public interface RequestModelEntityMapper {
     return User.builder()
         .id(user.getId())
         .username(user.getUsername())
-        .firstName(user.getFirstName())
-        .lastName(user.getLastName())
         .roles(user.getRoles())
         .build();
   }
