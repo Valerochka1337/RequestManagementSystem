@@ -3,12 +3,10 @@
 */
 create table users
 (
-    id         bigserial    not null unique
+    id       bigserial    not null
         primary key,
-    username   varchar(64)  not null,
-    password   varchar(256) not null,
-    first_name varchar(64)  not null,
-    last_name  varchar(64)
+    username varchar(256) not null unique,
+    password varchar(256) not null
 );
 
 /*
@@ -22,6 +20,27 @@ create table roles
 );
 
 /*
+ Permission table
+ */
+create table permissions
+(
+    id   serial      not null
+        primary key,
+    name varchar(64) not null
+);
+
+/*
+ Many-to-many roles-permissions table
+ */
+create table roles_permissions
+(
+    role_id       integer not null
+        references roles on delete cascade,
+    permission_id integer not null
+        references permissions on delete cascade
+);
+
+/*
     User-Role many-to-many table
 */
 create table users_roles
@@ -29,7 +48,9 @@ create table users_roles
     user_id bigint  not null
         references users on delete cascade,
     role_id integer not null
-        references roles on delete cascade
+        references roles on delete cascade,
+
+    CONSTRAINT user_pkey PRIMARY KEY (user_id, role_id)
 );
 
 

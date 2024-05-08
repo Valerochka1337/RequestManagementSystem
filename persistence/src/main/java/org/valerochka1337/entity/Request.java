@@ -1,7 +1,7 @@
 package org.valerochka1337.entity;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

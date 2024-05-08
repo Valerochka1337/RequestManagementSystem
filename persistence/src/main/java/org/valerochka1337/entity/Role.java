@@ -1,9 +1,7 @@
 package org.valerochka1337.entity;
 
-import javax.persistence.*;
-import java.util.Collection;
 import java.util.Set;
-
+import javax.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -20,6 +18,16 @@ public class Role {
   private Integer id;
 
   private String name;
+
+  @ManyToMany(fetch = FetchType.EAGER)
+  @JoinTable(
+      name = "roles_permissions",
+      joinColumns = {@JoinColumn(name = "role_id")},
+      inverseJoinColumns = {@JoinColumn(name = "permission_id")})
+  @OnDelete(action = OnDeleteAction.CASCADE)
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
+  private Set<Permission> permissions;
 
   public Role(String name) {
     this.name = name;

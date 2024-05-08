@@ -14,11 +14,11 @@ import org.valerochka1337.model.UserModel;
 @Mapper(componentModel = "spring", uses = RequestDTOModelMapper.class)
 public interface UserDTOModelMapper {
 
-  @Mapping(target="roles", qualifiedByName = "RolesToDTO")
-  @Mapping(target="requests")
+  @Mapping(target = "roles", qualifiedByName = "RolesToDTO")
+  @Mapping(target = "requests")
   UserDTO toDTO(UserModel model);
 
-  @Mapping(target="roles", qualifiedByName = "RolesToModel")
+  @Mapping(target = "roles", qualifiedByName = "RolesToModel")
   User toModel(UserDTO dto);
 
   @Named("RolesToDTO")

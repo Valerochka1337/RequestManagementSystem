@@ -1,6 +1,5 @@
 package org.valerochka1337.entity;
 
-
 import java.util.Set;
 
 import javax.persistence.*;

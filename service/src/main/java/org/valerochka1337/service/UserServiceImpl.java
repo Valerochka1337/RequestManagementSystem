@@ -2,6 +2,7 @@ package org.valerochka1337.service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.valerochka1337.entity.Role;
 import org.valerochka1337.entity.User;
@@ -21,7 +22,10 @@ public class UserServiceImpl implements UserService {
 
   private final UserModelEntityMapper userMapper;
 
-  public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, UserModelEntityMapper userMapper) {
+  public UserServiceImpl(
+      UserRepository userRepository,
+      RoleRepository roleRepository,
+      UserModelEntityMapper userMapper) {
     this.userRepository = userRepository;
     this.roleRepository = roleRepository;
     this.userMapper = userMapper;
@@ -48,9 +52,14 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public UserModel giveRoleToUser(Long id, String roleName) {
+    if (!roleName.equalsIgnoreCase("OPERATOR")) {
+      throw new AccessDeniedException("No permission to give this role");
+    }
     User userEntity = userRepository.findById(id).orElseThrow(NoUserFoundUserException::new);
     Role roleEntity =
-        roleRepository.findByName(roleName).orElseThrow(() -> new NoSuchRoleUserException(roleName));
+        roleRepository
+            .findByNameIgnoreCase(roleName)
+            .orElseThrow(() -> new NoSuchRoleUserException(roleName));
 
     userEntity.getRoles().add(roleEntity);
     userRepository.save(userEntity);

@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
+import org.valerochka1337.dto.RequestCreationDTO;
 import org.valerochka1337.dto.RequestDTO;
 import org.valerochka1337.dto.UserDTO;
 import org.valerochka1337.entity.Role;
@@ -27,6 +28,8 @@ public interface RequestDTOModelMapper {
   @Mapping(target = "author", qualifiedByName = "UserToModel")
   RequestModel toModel(RequestDTO dto);
 
+  RequestModel toModelRequestCreation(RequestCreationDTO dto);
+
   @Named("UserToDTO")
   default UserDTO mapUserToDTO(UserModel user) {
     if (user == null) {
@@ -41,7 +44,7 @@ public interface RequestDTOModelMapper {
   }
 
   @Named("UserToModel")
-  default UserModel mapUserToEntity(UserDTO user) {
+  default UserModel mapUserToModel(UserDTO user) {
     if (user == null) {
       return null;
     }
@@ -49,7 +52,10 @@ public interface RequestDTOModelMapper {
     return UserModel.builder()
         .id(user.getId())
         .username(user.getUsername())
-        .roles(user.getRoles().stream().map(Role::new).collect(Collectors.toSet()))
+        .roles(
+            user.getRoles() == null
+                ? null
+                : user.getRoles().stream().map(Role::new).collect(Collectors.toSet()))
         .build();
   }
 
@@ -77,4 +83,3 @@ public interface RequestDTOModelMapper {
     }
   }
 }
-
