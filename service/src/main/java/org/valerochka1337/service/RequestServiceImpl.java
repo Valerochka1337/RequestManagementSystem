@@ -3,6 +3,7 @@ package org.valerochka1337.service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.AccessDeniedException;
@@ -92,7 +93,7 @@ public class RequestServiceImpl implements RequestService {
       }
     }
 
-    if (user.getRoles().stream().anyMatch(role -> role.getName().compareTo("OPERATOR") == 0)) {
+    if (user.getRoles().stream().anyMatch(role -> Objects.equals(role.getName(), "OPERATOR"))) {
       resultRequests =
           resultRequests.stream()
               .peek(req -> req.setMessage(messageFormatter.format(req.getMessage())))
@@ -107,11 +108,11 @@ public class RequestServiceImpl implements RequestService {
     Request requestEntity =
         requestRepository.findById(id).orElseThrow(() -> new NoSuchRequestException(id));
     User user = getAuthorizedUser();
-    if (requestEntity.getAuthor().getId().compareTo(user.getId()) != 0) {
+    if (!Objects.equals(requestEntity.getAuthor().getId(), user.getId())) {
       throw new AccessDeniedException("Can't get request of another user");
     }
 
-    if (user.getRoles().stream().anyMatch(role -> role.getName().compareTo("OPERATOR") == 0)) {
+    if (user.getRoles().stream().anyMatch(role -> Objects.equals(role.getName(), "OPERATOR"))) {
       requestEntity.setMessage(messageFormatter.format(requestEntity.getMessage()));
     }
 
@@ -134,7 +135,7 @@ public class RequestServiceImpl implements RequestService {
     List<Request> resultRequest =
         requestRepository.findAllByStatusAndAuthor_Id(Status.SENT, foundUser.getId(), pageable);
     if (getAuthorizedUser().getRoles().stream()
-        .anyMatch(role -> role.getName().compareTo("OPERATOR") == 0)) {
+        .anyMatch(role -> Objects.equals(role.getName(), "OPERATOR"))) {
       resultRequest =
           resultRequest.stream()
               .peek(req -> req.setMessage(messageFormatter.format(req.getMessage())))
@@ -150,10 +151,10 @@ public class RequestServiceImpl implements RequestService {
         requestRepository.findById(id).orElseThrow(() -> new NoSuchRequestException(id));
 
     if (getAuthorizedUser().getRequests().stream()
-        .allMatch(request -> request.getId().compareTo(id) != 0)) {
+        .noneMatch(request -> Objects.equals(request.getId(), id))) {
       throw new AccessDeniedException("Cannot edit not owned request");
     }
-    if (existingRequest.getStatus().compareTo(Status.DRAFT) != 0) {
+    if (existingRequest.getStatus() != Status.DRAFT) {
       throw new EditNotDraftRequestException();
     }
 
@@ -169,11 +170,11 @@ public class RequestServiceImpl implements RequestService {
         requestRepository.findById(id).orElseThrow(() -> new NoSuchRequestException(id));
 
     if (getAuthorizedUser().getRequests().stream()
-        .allMatch(request -> request.getId().compareTo(id) != 0)) {
+        .noneMatch(request -> Objects.equals(request.getId(), id))) {
       throw new AccessDeniedException("Can't send not owned request");
     }
 
-    if (existingRequest.getStatus().compareTo(Status.DRAFT) != 0) {
+    if (existingRequest.getStatus() != Status.DRAFT) {
       throw new InvalidStatusRequestException();
     }
 
@@ -189,7 +190,7 @@ public class RequestServiceImpl implements RequestService {
     Request existingRequest =
         requestRepository.findById(id).orElseThrow(() -> new NoSuchRequestException(id));
 
-    if (existingRequest.getStatus().compareTo(Status.SENT) != 0) {
+    if (existingRequest.getStatus() != Status.SENT) {
       throw new InvalidStatusRequestException();
     }
 
@@ -204,7 +205,7 @@ public class RequestServiceImpl implements RequestService {
     Request existingRequest =
         requestRepository.findById(id).orElseThrow(() -> new NoSuchRequestException(id));
 
-    if (existingRequest.getStatus().compareTo(Status.SENT) != 0) {
+    if (existingRequest.getStatus() != Status.SENT) {
       throw new InvalidStatusRequestException();
     }
 
