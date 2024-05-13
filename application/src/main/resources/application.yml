@@ -18,6 +18,5 @@ spring:
     baseline-on-migrate: true
     baseline-version: 0
   security:
-    user:
-      password: admin
-      name: admin
+    encryption:
+      bcrypt-strength: 12
